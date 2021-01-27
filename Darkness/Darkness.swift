@@ -18,11 +18,12 @@
 import Cocoa
 
 class Darkness {
+  let defaults: UserDefaults = UserDefaults.standard
   let alphaKey: String = "alpha"
   let delta: CGFloat = 1 / 16
 
   var windows: [NSWindow] = []
-  var defaults: UserDefaults = UserDefaults.standard
+  var screenChangeObserver: NSObjectProtocol?
 
   var darkness: CGFloat {
     get { CGFloat(max(0, min(1, defaults.float(forKey: alphaKey)))) }
@@ -45,12 +46,27 @@ class Darkness {
 
   init() {
     registerDefaults()
+    recreateWindows()
+    keyEventListener.run()
+    DispatchQueue.main.async { self.observeScreenChanges() }
+  }
+
+  func observeScreenChanges() {
+    screenChangeObserver = NotificationCenter.default.addObserver(
+      forName: NSApplication.didChangeScreenParametersNotification,
+      object: nil,
+      queue: .main) { _ in
+        self.recreateWindows()
+    }
+  }
+
+  func recreateWindows() {
+    windows.forEach { $0.orderOut(nil) }
     windows = NSScreen.screens.map { $0.createOverlayWindow() }
     windows.forEach {
       $0.alphaValue = darkness
       $0.orderFrontRegardless()
     }
-    keyEventListener.run()
   }
 
   func modifyDarkness(_ modifier: (CGFloat) -> CGFloat) {
