@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Darkness.  If not, see <https://www.gnu.org/licenses/>.
 
+import Cocoa
 import CoreGraphics
 
 extension EventFilter: Bridgeable {}
@@ -46,7 +47,15 @@ public class EventFilter {
     userInfo: bridge())
 
   func run() {
-    guard let tap = tap else { fatalError("Failed to create tap") }
+    guard let tap = tap else {
+      let alert = NSAlert()
+      alert.alertStyle = .critical
+      alert.messageText = "Event tap creation failed."
+      alert.informativeText = "Ensure Darkness has correct permissions."
+      alert.addButton(withTitle: "Quit")
+      alert.runModal()
+      exit(0)
+    }
     CFRunLoopAddSource(
       CFRunLoopGetCurrent(),
       CFMachPortCreateRunLoopSource(nil, tap, 0),
