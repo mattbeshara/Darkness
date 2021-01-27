@@ -22,10 +22,11 @@ appear darker.
 key held down) to adjust the apparent brightness of all attached
 displays consistently.
 
-By default, this app has no visible user interface, and to quit it you
-have to use the shell by doing e.g. `pkill Darkness`. To enable a Dock
-icon and menu bar with a Quit item, change the value of the
-`LSUIElement` key in the `Info.plist` to `false`.
+By default, this app has no visible user interface. To quit it, you can
+activate the app by re-opening it from the Finder, and then pressing
+command-q. Alternatively, you can use the shell by doing e.g.
+`pkill Darkness`. To enable a Dock icon and menu bar with a Quit item,
+change the value of the `LSUIElement` key in `Info.plist` to `false`.
 
 If you’re building your own copy and the app `fatalError`s with the
 message "Failed to create tap", try running the app again after
