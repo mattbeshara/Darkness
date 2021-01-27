@@ -4,11 +4,12 @@ Keep brightness levels consistent between built-in and external displays
 
 ## How to use this app
 
-1. Build, or download a pre-built copy.
-2. Run.
-3. Grant `Input Monitoring` and/or `Accessibility` permissions when
-prompted to do so.
-4. Run again.
+1. Clone and build, or download a pre-built copy and unzip it.
+2. Open the Privacy tab of the Security & Privacy pane of System
+Preferences, and drag Darkness to the list of apps in Input Monitoring
+and/or Accessibility (this varies depending on the version of macOS).
+4. Run Darkness. You should see all displays dim slightly, which
+indicates it's working.
 5. Set the brightness level of all displays attached to your Mac to the
 maximum level each is capable of.
 6. Unless all displays have the same maximum brightness level, reduce
