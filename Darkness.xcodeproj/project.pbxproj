@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C94B79C325C188E200075DFE /* NSScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94B79C225C188E200075DFE /* NSScreen+Extensions.swift */; };
 		E884F14F25C011BC00B91BAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E884F14E25C011BC00B91BAD /* AppDelegate.swift */; };
 		E884F15125C011C000B91BAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E884F15025C011C000B91BAD /* Assets.xcassets */; };
 		E884F15425C011C000B91BAD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E884F15225C011C000B91BAD /* MainMenu.xib */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C94B79C225C188E200075DFE /* NSScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSScreen+Extensions.swift"; sourceTree = "<group>"; };
 		E884F14B25C011BC00B91BAD /* Darkness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Darkness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E884F14E25C011BC00B91BAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E884F15025C011C000B91BAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				E884F15F25C0344E00B91BAD /* EventFilter.swift */,
 				E884F17125C0378900B91BAD /* Darkness.swift */,
 				E884F14E25C011BC00B91BAD /* AppDelegate.swift */,
+				C94B79C225C188E200075DFE /* NSScreen+Extensions.swift */,
 				E884F15025C011C000B91BAD /* Assets.xcassets */,
 				E884F15225C011C000B91BAD /* MainMenu.xib */,
 				E884F15525C011C000B91BAD /* Info.plist */,
@@ -140,6 +143,7 @@
 			files = (
 				E884F16625C034B800B91BAD /* Bridgeable.swift in Sources */,
 				E884F16025C0344E00B91BAD /* EventFilter.swift in Sources */,
+				C94B79C325C188E200075DFE /* NSScreen+Extensions.swift in Sources */,
 				E884F17225C0378900B91BAD /* Darkness.swift in Sources */,
 				E884F14F25C011BC00B91BAD /* AppDelegate.swift in Sources */,
 			);

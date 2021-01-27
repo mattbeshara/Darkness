@@ -45,8 +45,11 @@ class Darkness {
 
   init() {
     registerDefaults()
-    windows = NSScreen.screens.map(createWindow)
-    windows.forEach { $0.orderFrontRegardless() }
+    windows = NSScreen.screens.map { $0.createOverlayWindow() }
+    windows.forEach {
+      $0.alphaValue = darkness
+      $0.orderFrontRegardless()
+    }
     keyEventListener.run()
   }
 
@@ -57,34 +60,5 @@ class Darkness {
 
   func registerDefaults() {
     defaults.register(defaults: [alphaKey: delta])
-  }
-
-  func createWindow(screen: NSScreen) -> NSWindow {
-    let window = NSWindow(
-      contentRect: NSRect(
-        x: 0,
-        y: 0,
-        width: screen.frame.size.width,
-        height: screen.frame.size.height
-      ),
-      styleMask: .borderless,
-      backing: .buffered,
-      defer: false,
-      screen: screen
-    )
-
-    window.alphaValue = darkness
-    window.backgroundColor = .black
-    window.canHide = false
-    window.collectionBehavior = [
-      .canJoinAllSpaces,
-      .stationary,
-      .ignoresCycle,
-      .fullScreenAuxiliary
-    ]
-    window.level = .screenSaver + 1
-    window.ignoresMouseEvents = true
-
-    return window
   }
 }
