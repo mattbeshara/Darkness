@@ -2,6 +2,8 @@
 
 Keep brightness levels consistent between built-in and external displays
 
+![Demonstration GIF](Darkness.gif)
+
 ## How to use this app
 
 1. Clone and build, or download a pre-built copy and unzip it.
@@ -23,12 +25,7 @@ key held down) to adjust the apparent brightness of all attached
 displays consistently.
 
 By default, this app has no visible user interface. To quit it, you can
-activate the app by re-opening it from the Finder, and then pressing
+activate the app by re-opening it from the Finder, and then press
 command-q. Alternatively, you can use the shell by doing e.g.
 `pkill Darkness`. To enable a Dock icon and menu bar with a Quit item,
 change the value of the `LSUIElement` key in `Info.plist` to `false`.
-
-If you’re building your own copy and the app `fatalError`s with the
-message "Failed to create tap", try running the app again after
-dragging it into the list of apps in the Privacy preference pane, even
-if it's there already.
