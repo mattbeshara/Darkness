@@ -44,7 +44,8 @@ public class EventFilter {
     options: .defaultTap,
     eventsOfInterest: mask,
     callback: callback,
-    userInfo: bridge())
+    userInfo: bridge()
+  )
 
   func run() {
     guard let tap = tap else {
@@ -59,6 +60,7 @@ public class EventFilter {
     CFRunLoopAddSource(
       CFRunLoopGetCurrent(),
       CFMachPortCreateRunLoopSource(nil, tap, 0),
-      .commonModes)
+      .commonModes
+    )
   }
 }

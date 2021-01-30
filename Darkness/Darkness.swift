@@ -48,16 +48,15 @@ class Darkness {
     registerDefaults()
     recreateWindows()
     keyEventListener.run()
-    DispatchQueue.main.async { self.observeScreenChanges() }
+    observeScreenChanges()
   }
 
   func observeScreenChanges() {
     screenChangeObserver = NotificationCenter.default.addObserver(
       forName: NSApplication.didChangeScreenParametersNotification,
       object: nil,
-      queue: .main) { _ in
-        self.recreateWindows()
-    }
+      queue: .main
+    ) { _ in self.recreateWindows() }
   }
 
   func recreateWindows() {
