@@ -16,16 +16,16 @@
 // along with Darkness.  If not, see <https://www.gnu.org/licenses/>.
 
 public protocol Bridgeable: AnyObject {
-  static func bridge(_: UnsafeMutableRawPointer) -> Self?
-  func bridge() -> UnsafeMutableRawPointer
+    static func bridge(_: UnsafeMutableRawPointer) -> Self?
+    func bridge() -> UnsafeMutableRawPointer
 }
 
 public extension Bridgeable {
-  static func bridge(_ pointer: UnsafeMutableRawPointer) -> Self? {
-    Unmanaged.fromOpaque(pointer).takeUnretainedValue()
-  }
+    static func bridge(_ pointer: UnsafeMutableRawPointer) -> Self? {
+        Unmanaged.fromOpaque(pointer).takeUnretainedValue()
+    }
 
-  func bridge() -> UnsafeMutableRawPointer {
-    UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
-  }
+    func bridge() -> UnsafeMutableRawPointer {
+        UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
+    }
 }

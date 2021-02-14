@@ -18,62 +18,63 @@
 import Cocoa
 
 class Darkness {
-  let defaults: UserDefaults = UserDefaults.standard
-  let alphaKey: String = "alpha"
-  let delta: CGFloat = 1 / 16
+    let defaults: UserDefaults = UserDefaults.standard
+    let alphaKey: String = "alpha"
+    let delta: CGFloat = 1 / 16
 
-  var windows: [NSWindow] = []
-  var screenChangeObserver: NSObjectProtocol?
+    var windows: [NSWindow] = []
+    var screenChangeObserver: NSObjectProtocol?
 
-  var darkness: CGFloat {
-    get { CGFloat(max(0, min(1, defaults.float(forKey: alphaKey)))) }
-    set { defaults.setValue(newValue, forKey: alphaKey) }
-  }
-
-  lazy var keyEventListener =
-    EventFilter(1 << CGEventType.keyDown.rawValue) {
-      switch $0.getIntegerValueField(.keyboardEventKeycode) {
-      case 122: // F1
-        self.modifyDarkness { $0 + self.delta }
-        return nil
-      case 120: // F2
-        self.modifyDarkness { $0 - self.delta }
-        return nil
-      default:
-        return $0
-      }
-  }
-
-  init() {
-    registerDefaults()
-    recreateWindows()
-    keyEventListener.run()
-    observeScreenChanges()
-  }
-
-  func observeScreenChanges() {
-    screenChangeObserver = NotificationCenter.default.addObserver(
-      forName: NSApplication.didChangeScreenParametersNotification,
-      object: nil,
-      queue: .main
-    ) { _ in self.recreateWindows() }
-  }
-
-  func recreateWindows() {
-    windows.forEach { $0.orderOut(nil) }
-    windows = NSScreen.screens.map { $0.createOverlayWindow() }
-    windows.forEach {
-      $0.alphaValue = darkness
-      $0.orderFrontRegardless()
+    var darkness: CGFloat {
+        get { CGFloat(max(0, min(1, defaults.float(forKey: alphaKey)))) }
+        set { defaults.setValue(newValue, forKey: alphaKey) }
     }
-  }
 
-  func modifyDarkness(_ modifier: (CGFloat) -> CGFloat) {
-    darkness = modifier(darkness)
-    windows.forEach { $0.animator().alphaValue = darkness }
-  }
+    lazy var keyEventListener =
+        EventFilter(1 << CGEventType.keyDown.rawValue) {
+            switch $0.getIntegerValueField(.keyboardEventKeycode) {
+            case 122: // F1
+                self.modifyDarkness { $0 + self.delta }
+                return nil
+            case 120: // F2
+                self.modifyDarkness { $0 - self.delta }
+                return nil
+            default:
+                return $0
+            }
+    }
 
-  func registerDefaults() {
-    defaults.register(defaults: [alphaKey: delta])
-  }
+    init() {
+        registerDefaults()
+        recreateWindows()
+        keyEventListener.run()
+        observeScreenChanges()
+    }
+
+    func observeScreenChanges() {
+        screenChangeObserver = NotificationCenter.default.addObserver(
+            forName: NSApplication.didChangeScreenParametersNotification,
+            object: nil,
+            queue: .main,
+            using: { _ in self.recreateWindows() }
+        )
+    }
+
+    func recreateWindows() {
+        windows.forEach { $0.orderOut(nil) }
+        windows = NSScreen.screens.map { $0.createOverlayWindow() }
+        windows.forEach {
+            $0.alphaValue = darkness
+            $0.orderFrontRegardless()
+        }
+    }
+
+    func modifyDarkness(_ modifier: (CGFloat) -> CGFloat) {
+        darkness = modifier(darkness)
+        windows.forEach { $0.animator().alphaValue = darkness }
+    }
+
+    func registerDefaults() {
+        defaults.register(defaults: [alphaKey: delta])
+    }
 }
